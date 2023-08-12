@@ -90,9 +90,10 @@ int main() {
   cout << "Enter String to Search in Data : ";
   getline(cin, searchInput);
 
+  cout << endl << "By Naive Algorithm : " << endl;
   NaiveAlgorithm naiveAlgorithm(dataInput, searchInput);
   naiveAlgorithm.findAllMatches();
-
+  cout << endl << "By Horspools Algorithm : " << endl;
   HorspoolsAlgorithm horspoolsAlgorithm(dataInput, searchInput);
   horspoolsAlgorithm.findAllMatches();
 
