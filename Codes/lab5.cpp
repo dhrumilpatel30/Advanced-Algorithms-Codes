@@ -1,30 +1,7 @@
 #include <bits/stdc++.h>
+#include <stringMatching.h>
 
 using namespace std;
-
-class StringMatching {
- protected:
-  int lengthOfDataString, lengthOfSearchString, totalMatches;
-  string dataString, searchString;
-  void printMessage(int indexOfMatching) {
-    cout << "Found a match at index: " << indexOfMatching << " : ";
-    for (int i = 0; i < lengthOfDataString; i++) {
-      if (i == indexOfMatching) cout << "\"";
-      cout << dataString[i];
-      if (i == indexOfMatching + lengthOfSearchString - 1) cout << "\"";
-    }
-    cout << endl;
-  }
-
- public:
-  StringMatching(string dataString, string searchString) {
-    this->dataString = dataString;
-    this->searchString = searchString;
-    lengthOfDataString = dataString.length();
-    lengthOfSearchString = searchString.length();
-    totalMatches = 0;
-  }
-};
 
 class NaiveAlgorithm : public StringMatching {
   bool matchString(int indexToSearch) {
@@ -38,7 +15,7 @@ class NaiveAlgorithm : public StringMatching {
   NaiveAlgorithm(string dataString, string searchString)
       : StringMatching(dataString, searchString) {}
 
-  void findAllMatches() {
+  void findMatches() {
     for (int i = 0; i < lengthOfDataString - lengthOfSearchString + 1; i++) {
       if (matchString(i)) {
         printMessage(i);
@@ -72,7 +49,7 @@ class HorspoolsAlgorithm : public StringMatching {
       : StringMatching(dataString, searchString) {
     initializeShifts();
   }
-  void findAllMatches() {
+  void findMatches() {
     for (int i = 0; i < lengthOfDataString - lengthOfSearchString + 1;) {
       if (matchString(i)) {
         printMessage(i);
@@ -92,10 +69,10 @@ int main() {
 
   cout << endl << "By Naive Algorithm : " << endl;
   NaiveAlgorithm naiveAlgorithm(dataInput, searchInput);
-  naiveAlgorithm.findAllMatches();
+  naiveAlgorithm.findMatches();
   cout << endl << "By Horspools Algorithm : " << endl;
   HorspoolsAlgorithm horspoolsAlgorithm(dataInput, searchInput);
-  horspoolsAlgorithm.findAllMatches();
+  horspoolsAlgorithm.findMatches();
 
   return 0;
 }
