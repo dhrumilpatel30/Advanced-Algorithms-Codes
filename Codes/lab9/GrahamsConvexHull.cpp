@@ -41,13 +41,31 @@ class GrahamConvexHull {
       points.push_back({-1.0, point});
     }
   }
-  bool isConvexHull() {
+  int direction(pointType p1, pointType p2, pointType p3) {
+    return (p2.first - p1.first) * (p3.second - p1.second) -
+           (p2.second - p1.second) * (p3.first - p1.first);
+  }
+  vector<pointWithSin> getConvexHull() {
     findBasePoint();
     generateSin();
     sort(points.begin(), points.end());
     vector<pointWithSin> convexHull;
-
-    return false;
+    if (3 > points.size()) return points;
+    convexHull.push_back(points[0]);
+    convexHull.push_back(points[1]);
+    convexHull.push_back(points[2]);
+    for (int i = 3; i < points.size(); i++) {
+      while (convexHull.size() > 1) {
+        pointWithSin p1 = convexHull[convexHull.size() - 2];
+        pointWithSin p2 = convexHull[convexHull.size() - 1];
+        if (direction(p1.second, p2.second, points[i].second) < 0)
+          convexHull.pop_back();
+        else
+          break;
+      }
+      convexHull.push_back(points[i]);
+    }
+    return convexHull;
   }
 };
 
@@ -55,5 +73,10 @@ int main() {
   vector<pointType> pointsInput = {{1, 1}, {1, 3}, {3, 1},  {1, 2},  {2, 1},
                                    {0, 0}, {0, 3}, {-1, 3}, {-1, 1}, {-3, 1}};
   GrahamConvexHull grahamHull(pointsInput);
-  grahamHull.isConvexHull();
+  vector<pointWithSin> convexHull = grahamHull.getConvexHull();
+  for (pointWithSin point : convexHull) {
+    cout << "(" << point.second.first << ", " << point.second.second << ")"
+         << endl;
+  }
+  return 0;
 }
