@@ -28,7 +28,7 @@ int partition(int array[], int p, int r) {
   return (i + 1);
 }
 
-void randMergeSort(int array[], int p, int r) {
+void randQuickSort(int array[], int p, int r) {
   if (p < r) {
     int q = partition(array, p, r);
 
@@ -44,7 +44,7 @@ int main() {
                  29, 40, 50, 10, 4,  23, 34, 45, 45, 24, 89,  799, 45,
                  80, 50, 10, 30, 43, 54, 65, 76, 87, 98, 21,  32,  43,
                  78, 98, 57, 29, 91, 34, 54, 64, 19, 82, 87,  65};
-  randMergeSort(array, 0, sizeof(array) / sizeof(array[0]) - 1);
+  randQuickSort(array, 0, sizeof(array) / sizeof(array[0]) - 1);
   cout << endl << "sortedArray :";
   for (int i = 0; i < sizeof(array) / sizeof(array[0]); i++)
     cout << array[i] << " ";
